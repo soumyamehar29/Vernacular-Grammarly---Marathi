@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="मराठी व्याकरण सुधारक - Marathi Grammar and Spelling Correction Tool using local ML and dataset-based correction.">
+  <title>मराठी व्याकरण सुधारक</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Paithani Top Border -->
+  <div class="paithani-border"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <!-- Rangoli Corner Motif -->
+    <div class="rangoli-corner">
+      <svg viewBox="0 0 130 145" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 4 Curled Spirals (like reversed 6) at top -->
+        <path d="M18,30 C18,20 14,12 20,8 C26,4 30,10 28,16 C26,22 20,24 18,20" stroke="#FF6B00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M43,26 C43,16 39,8 45,4 C51,0 55,6 53,12 C51,18 45,20 43,16" stroke="#FF6B00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M83,26 C83,16 79,8 85,4 C91,0 95,6 93,12 C91,18 85,20 83,16" stroke="#FF6B00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M110,30 C110,20 106,12 112,8 C118,4 122,10 120,16 C118,22 112,24 110,20" stroke="#FF6B00" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+
+        <!-- Vertical stems from spirals down to top horizontal line -->
+        <line x1="18" y1="30" x2="18" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="43" y1="26" x2="43" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="83" y1="26" x2="83" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="110" y1="30" x2="110" y2="42" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- H1: Top horizontal line -->
+        <line x1="2" y1="42" x2="126" y2="42" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Row 1: 3 large upward-pointing triangles (peaks at spirals) -->
+        <polygon points="2,42 43,42 18,42" stroke="#FF6B00" stroke-width="0" fill="none"/>
+        <!-- Row 1: 3 downward-pointing triangles from H1 -->
+        <line x1="2" y1="42" x2="20" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="40" y1="42" x2="20" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="40" y1="42" x2="65" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="88" y1="42" x2="65" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="88" y1="42" x2="108" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="126" y1="42" x2="108" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Row 1 upward triangles overlapping (creating X pattern) -->
+        <line x1="2" y1="72" x2="20" y2="42" stroke="#FF6B00" stroke-width="2" opacity="0.9"/>
+        <line x1="40" y1="72" x2="20" y2="42" stroke="#FF6B00" stroke-width="0" opacity="0"/>
+        
+        <!-- Large edge triangles -->
+        <line x1="2" y1="42" x2="2" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="126" y1="42" x2="126" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- H2: Second horizontal line -->
+        <line x1="2" y1="72" x2="126" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Upward triangles from H2 back to H1 (creating the lattice) -->
+        <line x1="20" y1="72" x2="40" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="65" y1="72" x2="40" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="65" y1="72" x2="88" y2="42" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="108" y1="72" x2="88" y2="42" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Row 2: Downward triangles from H2 -->
+        <line x1="20" y1="72" x2="42" y2="102" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="65" y1="72" x2="42" y2="102" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="65" y1="72" x2="86" y2="102" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="108" y1="72" x2="86" y2="102" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- H3: Third horizontal line -->
+        <line x1="20" y1="102" x2="108" y2="102" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Upward triangles from H3 back to H2 -->
+        <line x1="42" y1="102" x2="65" y2="72" stroke="#FF6B00" stroke-width="0" fill="none"/>
+        <line x1="86" y1="102" x2="65" y2="72" stroke="#FF6B00" stroke-width="0" fill="none"/>
+        <line x1="20" y1="102" x2="20" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="108" y1="102" x2="108" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Upward triangles from H3 -->
+        <line x1="42" y1="102" x2="20" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="86" y1="102" x2="108" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Row 3: Downward triangles from H3 -->
+        <line x1="42" y1="102" x2="64" y2="128" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="86" y1="102" x2="64" y2="128" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Vertical edges for Row 3 -->
+        <line x1="42" y1="102" x2="42" y2="72" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="86" y1="102" x2="86" y2="72" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- H4: Bottom horizontal -->
+        <line x1="42" y1="128" x2="86" y2="128" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Upward triangle from H4 -->
+        <line x1="42" y1="128" x2="42" y2="102" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="86" y1="128" x2="86" y2="102" stroke="#FF6B00" stroke-width="2"/>
+
+        <!-- Bottom point triangle -->
+        <line x1="50" y1="128" x2="64" y2="142" stroke="#FF6B00" stroke-width="2"/>
+        <line x1="78" y1="128" x2="64" y2="142" stroke="#FF6B00" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="header-content">
+      <div class="header-icon">
+        <svg viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" stroke="#FFD700" stroke-width="2" fill="none" opacity="0.3"/>
+          <text x="24" y="30" text-anchor="middle" fill="#FFD700" font-size="22" font-family="'Tiro Devanagari Marathi', serif">म</text>
+        </svg>
+      </div>
+      <h1>
+        <span class="devanagari-main">मराठी व्याकरण सुधारक</span>
+        <span class="hindi-sub">मराठी व्याकरण सुधारक</span>
+        <span class="english-sub">Marathi Grammar Corrector</span>
+      </h1>
+      <div class="saffron-underline"></div>
+    </div>
+  </header>
+
+  <!-- Main App Container -->
+  <div class="app-container">
+    <main class="main-content">
+      <!-- LEFT PANEL — Input -->
+      <section class="panel panel-input" aria-label="Input Section">
+        <div class="panel-label">
+          <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          मजकूर लिहा
+          <span class="label-secondary">/ पाठ लिखें / Enter Text</span>
+        </div>
+
+        <textarea
+          id="inputTextarea"
+          class="input-textarea"
+          placeholder="येथे मराठी मजकूर लिहा... / यहाँ मराठी पाठ लिखें... / Type Marathi text here..."
+          spellcheck="false"
+          aria-label="Marathi text input"
+        ></textarea>
+        <div class="char-count" id="charCount">0 characters</div>
+
+        <div class="voice-input-row">
+          <button type="button" class="btn-voice" id="voiceBtn" aria-label="Start voice input">
+            <span class="mic-icon">🎙️</span> आवाज / Voice Input
+          </button>
+          <span class="voice-status" id="voiceStatus">Tap mic to speak / आवाज बोलण्यासाठी टॅप करा</span>
+        </div>
+
+        <!-- Virtual Keyboard -->
+        <div class="keyboard-section">
+          <div class="keyboard-header">
+            <span class="keyboard-title">
+              <span class="keyboard-icon">⌨️</span> मराठी कळफलक / Marathi Keyboard
+            </span>
+            <button class="keyboard-toggle" id="keyboardToggle" type="button">Hide ▲</button>
+          </div>
+          <div class="keyboard-container" id="keyboardContainer">
+
+            <div class="keyboard-row-label">स्वर / Vowels</div>
+            <div class="keyboard-row" id="vowelRow"></div>
+
+            <div class="keyboard-row-label">मात्रा / Matras</div>
+            <div class="keyboard-row" id="matraRow"></div>
+
+            <div class="keyboard-row-label">व्यंजन / Consonants – 1</div>
+            <div class="keyboard-row" id="consonantRow1"></div>
+
+            <div class="keyboard-row-label">व्यंजन / Consonants – 2</div>
+            <div class="keyboard-row" id="consonantRow2"></div>
+
+            <div class="keyboard-row-label">व्यंजन / Consonants – 3</div>
+            <div class="keyboard-row" id="consonantRow3"></div>
+
+            <div class="keyboard-row-label">व्यंजन / Consonants – 4 + विशेष</div>
+            <div class="keyboard-row" id="consonantRow4"></div>
+
+            <div class="keyboard-row-label">उपयुक्तता / Utility</div>
+            <div class="keyboard-row" id="utilityRow"></div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="btn-row">
+          <button type="button" class="btn-submit" id="submitBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+            सादर करा / सादर करें / Submit
+          </button>
+        </div>
+      </section>
+
+      <!-- Divider -->
+      <div class="panel-divider"></div>
+
+      <!-- RIGHT PANEL — Output -->
+      <section class="panel panel-output" aria-label="Output Section">
+        <div class="panel-label">
+          <svg class="label-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          सुधारित मजकूर
+          <span class="label-secondary">/ सुधरा हुआ पाठ / Corrected Text</span>
+        </div>
+
+        <!-- Output States -->
+        <div class="output-display empty" id="outputDisplay">
+          सुधारित मजकूर येथे दिसेल...<br/>
+          <span style="font-size: 0.82rem;">Corrected text will appear here...</span>
+        </div>
+
+        <div class="pronunciation-panel hidden" id="pronunciationPanel">
+          <div class="pronunciation-label">उच्चारण / Pronunciation</div>
+          <div class="pronunciation-text" id="pronunciationText"></div>
+        </div>
+
+        <div class="loading-container" id="loadingContainer">
+          <div class="spinner"></div>
+          <div class="loading-text">तपासत आहे... / जाँच रहा है... / Checking...</div>
+        </div>
+
+        <div class="error-container" id="errorContainer">
+          <p id="errorMsgMr">त्रुटी आली.</p>
+          <p id="errorMsgHi">त्रुटि आई।</p>
+          <p id="errorMsgEn">An error occurred.</p>
+        </div>
+
+        <!-- Diff Section -->
+        <div class="diff-section hidden" id="diffSection">
+          <div class="diff-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/>
+            </svg>
+            बदल / Changes
+          </div>
+          <div class="diff-display" id="diffDisplay"></div>
+        </div>
+
+        <!-- Copy Button -->
+        <div class="btn-row hidden" id="copyBtnRow">
+          <button type="button" class="btn-copy" id="copyBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+            </svg>
+            Copy / कॉपी
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-border"></div>
+      <p>Powered by Marathi grammar correction with local fallback and remote API support • Inspired by the spirit of Maharashtra <span class="heart">🧡</span></p>
+    </footer>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
