@@ -71,7 +71,16 @@ DEFAULT_DICT = {
         "एवढे चांगले": "इतके चांगले",
         "मला हे आवडते": "मला हे आवडते",
         "आपण आहे": "आपण आहोत",
-        "आम्ही आहेत": "आम्ही आहोत"
+        "आम्ही आहेत": "आम्ही आहोत",
+        "मी शाळा जातो": "मी शाळेत जातो",
+        "मी जेवत आहे घरी": "मी घरी जेवत आहे",
+        "तो खेळतो आहे": "तो खेळत आहे",
+        "ती वाचते आहे पुस्तक": "ती पुस्तक वाचत आहे",
+        "मी पितो पाणी": "मी पाणी पितो",
+        "तो गातो आहे": "तो गाणे गात आहे",
+        "ती आहे नाचत": "ती नाचत आहे",
+        "मी आहे अभ्यास करत": "मी अभ्यास करत आहे",
+        "आपण जातो बाजारात": "आपण बाजारात जात आहोत"
     }
 }
 
@@ -249,9 +258,9 @@ def call_gemini_api(text):
     first_candidate = candidates[0]
     corrected = ""
     if isinstance(first_candidate, dict):
-        content = first_candidate.get("content", [])
-        if content and isinstance(content, list):
-            parts = content[0].get("parts", [])
+        content = first_candidate.get("content", {})
+        if isinstance(content, dict):
+            parts = content.get("parts", [])
             if parts and isinstance(parts, list):
                 corrected = parts[0].get("text", "")
 
@@ -328,7 +337,6 @@ def fix_auxiliary(sentence, subject):
 
 
 def fix_phrase_grammar(sentence):
-    # phrase-level grammar tuning for Marathi sentence structure
     sentence = sentence.replace("अज ", "आज ")
     sentence = sentence.replace("हावामान", "हवामान")
     sentence = sentence.replace("चालतो आहे", "चालत आहे")
@@ -339,8 +347,6 @@ def fix_phrase_grammar(sentence):
     sentence = sentence.replace("होते आहे", "होते")
     sentence = sentence.replace("आहे आहेत", "आहेत")
     sentence = sentence.replace("आहेत आहेत", "आहेत")
-    sentence = sentence.replace("त्यांना आहे", "त्यांना आहे")
-    sentence = sentence.replace("मी आहे", "मी आहे")
     sentence = sentence.replace("पुन्हा एकदा", "पुन्हा")
     sentence = sentence.replace("खुप ", "खूप ")
     sentence = sentence.replace("अत", "असे")
@@ -378,7 +384,7 @@ def correct_text(input_text):
     if not final_text.endswith("."):
         final_text += "."
 
-    # अंतिम सफाई
+    # Final cleanup
     final_text = final_text.replace("आहेतत", "आहेत")
 
     return final_text

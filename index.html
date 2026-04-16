@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="मराठी व्याकरण सुधारक - Marathi Grammar and Spelling Correction Tool using local ML and dataset-based correction.">
+  <meta name="description" content="मराठी व्याकरण सुधारक - Marathi Grammar and Spelling Correction Tool powered by Gemini AI. Correct your Marathi text with AI assistance.">
   <title>मराठी व्याकरण सुधारक</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
@@ -117,6 +118,7 @@
     </div>
   </header>
 
+
   <!-- Main App Container -->
   <div class="app-container">
     <main class="main-content">
@@ -139,13 +141,6 @@
           aria-label="Marathi text input"
         ></textarea>
         <div class="char-count" id="charCount">0 characters</div>
-
-        <div class="voice-input-row">
-          <button type="button" class="btn-voice" id="voiceBtn" aria-label="Start voice input">
-            <span class="mic-icon">🎙️</span> आवाज / Voice Input
-          </button>
-          <span class="voice-status" id="voiceStatus">Tap mic to speak / आवाज बोलण्यासाठी टॅप करा</span>
-        </div>
 
         <!-- Virtual Keyboard -->
         <div class="keyboard-section">
@@ -210,11 +205,6 @@
           <span style="font-size: 0.82rem;">Corrected text will appear here...</span>
         </div>
 
-        <div class="pronunciation-panel hidden" id="pronunciationPanel">
-          <div class="pronunciation-label">उच्चारण / Pronunciation</div>
-          <div class="pronunciation-text" id="pronunciationText"></div>
-        </div>
-
         <div class="loading-container" id="loadingContainer">
           <div class="spinner"></div>
           <div class="loading-text">तपासत आहे... / जाँच रहा है... / Checking...</div>
@@ -253,13 +243,14 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-border"></div>
-      <p>Powered by Marathi grammar correction with local fallback and remote API support • Inspired by the spirit of Maharashtra <span class="heart">🧡</span></p>
+      <p>Powered by Gemini AI • Inspired by the spirit of Maharashtra <span class="heart">🧡</span></p>
     </footer>
   </div>
 
   <!-- Toast Notification -->
   <div class="toast" id="toast"></div>
 
+  <script src="api.js"></script>
   <script src="script.js"></script>
 
 </body>
